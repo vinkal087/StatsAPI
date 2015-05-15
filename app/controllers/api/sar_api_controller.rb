@@ -7,6 +7,9 @@ class Api::SarApiController < ApplicationController
     puts "hi"
     count = 0
     cpu = 0
+    cpupercent = []
+    mempercent = []
+    memvalues = []
     mem = 0 
     x = ""
     File.open("/home/ritika/stats2.txt", "r").readlines.each do |line|
@@ -14,15 +17,21 @@ class Api::SarApiController < ApplicationController
          line = line.squish
          puts line
          words = line.split(' ')
+         cpupercent.push(words[1])
+         mempercent.push(words[5])
+         memvalues.push("#{words[2]}#{words[3]}#{words[4]}")
          puts words[1] + " " + words[5]
          cpu += words[1].chomp('%').to_i
          mem += words[5].chomp('%').to_i
        end
-    avgstats = {}   
-    avgstats[:avgcpu] = cpu/count
-    avgstats[:avgmem] = mem/count
-
-    render json: avgstats
+    stats = {}   
+    stats[:avgcpu] = cpu/count
+    stats[:avgmem] = mem/count
+    stats[:count] = count
+    stats[:cpupercent] = cpupercent
+    stats[:mempercent] = mempercent
+    stats[:memvalues] = memvalues
+    render json: stats
   end
   
   def cpu_stats
