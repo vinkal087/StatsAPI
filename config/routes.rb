@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   namespace :api do
-    get 'cpu/:cvm_name/:time_interval1/:time_interval2' => 'sar_api#cpu_stats'
-    get 'memory/:cvm_name/:time_interval1/:time_interval2' => 'sar_api#memory_stats'
-    get 'io/:cvm_name/:time_interval1/:time_interval2' => 'sar_api#io_stats'
+    get 'cpu/:time_interval1/:time_interval2' => 'sar_api#cpu_stats'
+    get 'memory/:time_interval1/:time_interval2' => 'sar_api#memory_stats'
+    get 'io/:time_interval1/:time_interval2' => 'sar_api#io_stats'
     get 'stats/:timeout/:cvm_name' => 'sar_api#stats'
   end
   # Example resource route with options:
