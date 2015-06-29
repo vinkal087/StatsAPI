@@ -8,7 +8,7 @@ class RemoteServer
 	end
 
 	def remote_program_time(remote_full_path , parameters)
-		Net::SSH.start(@remote_ip, @username, :password => @password) do |ssh|
+		Net::SSH.start(@remote_ip,  @username, :password => @password, :port => @remote_port.to_i) do |ssh|
 			t1 = Time.now
 			res = ssh.exec!("#{remote_full_path} #{parameters}")
 			t2 = Time.now
